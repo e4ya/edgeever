@@ -1468,10 +1468,6 @@ export const WorkspaceApp = ({
 
   const mergeMutation = useMutation({
     mutationFn: repository.mergeMemos,
-    onError: (error) => setAppNoticeDialog({
-      title: t("memoList.mergeMemos"),
-      description: error instanceof Error ? error.message : String(error),
-    }),
     onSuccess: async (data) => {
       clearMemoSelection();
       cacheMemoDetail(queryClient, data.memo, "notebook");
@@ -2113,7 +2109,7 @@ export const WorkspaceApp = ({
   };
 
   const handleMerge = () => {
-    if (mergeMutation.isPending || selectedMemoIds.size < 2 || memoView === "trash") {
+    if (selectedMemoIds.size < 2 || memoView === "trash") {
       return;
     }
 
